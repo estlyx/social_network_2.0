@@ -1,0 +1,147 @@
+{% extends "users/layout.html" %} {% load static %} {% block cssfiles %} {%endblock cssfiles %} {% block searchform %}
+<form
+  class="form-inline my-2 my-lg-0 ml-5"
+  action="{% url 'search_users' %}"
+  method="get"
+>
+  <input name="q" type="text" placeholder="Искать друзей..." />
+  <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">
+    Искать
+  </button>
+</form>
+{% endblock searchform %} {% block content %}
+
+<div class="main-content">
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-xl-8 m-auto order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="card-body pt-0">
+            <div class="text-center">
+              <h3>{{ u }}</h3>
+              <div>
+                    <span class="heading">{{ u.profile.friends.count }}</span>
+                    {% if request.user == u %}
+                    <span class="description"
+                      ><a href="{% url 'friend_list' %}">Друзей</a></span
+                    >
+                    {% else %}
+                    <span class="description">Друзей</span>
+                    {% endif %}
+              </div>
+              <hr class="my-2" />
+              {% if request.user == u %}
+              <a class="btn btn-info" href="{% url 'edit_profile' %}"
+                >Редактировать профиль</a
+              >
+              {% else %} {% if button_status == 'not_friend' %}
+              <small
+                ><a
+                  class="btn btn-primary"
+                  href="{% url 'send_friend_request' u.id %}"
+                  >Добавить в друзья</a
+                ></small
+              >
+              {% elif button_status == 'friend_request_sent' %}
+              <small
+                ><a
+                  class="btn btn-danger"
+                  href="{% url 'cancel_friend_request' u.id %}"
+                  >Отменить заявку в друзья</a
+                ></small
+              >
+              {% elif button_status == 'friend_request_received' %}
+              <small
+                ><a
+                  class="btn btn-success mr-2"
+                  href="/users/friend-request/accept/{{ u.id }}"
+                  >Принять заявку</a
+                ></small
+              >
+              <small
+                ><a
+                  class="btn btn-danger"
+                  href="/users/friend-request/delete/{{ u.id }}"
+                  >Отклонить заявку</a
+                ></small
+              >
+              {% else %}
+              <small
+                ><a
+                  class="btn btn-danger"
+                  href="{% url 'delete_friend' u.id %}"
+                  >Удалить из друзей</a
+                ></small
+              >
+              {% endif %} {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    {% if request.user == u %}
+    <div class="row">
+      <div class="col-md-6.5">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h2>Отправленные заявки в друзья: {{ sent_friend_requests.count }}</h2>
+            <hr class="my-2" />
+            {% if not sent_friend_requests %}
+            <h5><i>Нет отправленных заявок</i></h5>
+            {% else %} {% for s_request in sent_friend_requests %}
+            <a href="{{ s_request.to_user.profile.get_absolute_url }}/"
+              ></a>
+            <a href="{{ s_request.to_user.profile.get_absolute_url }}/"
+              ><b>{{ s_request.to_user.username }}</b></a
+            >
+            <small class="float-right">
+              <a
+                class="btn btn-danger mr-2"
+                href="{% url 'cancel_friend_request' s_request.to_user.id %}"
+                >Отменить</a
+              >
+            </small>
+            <br /><br />
+            {% endfor %} {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h2>Полученные заявки в друзья: {{ rec_friend_requests.count }}</h2>
+            <hr class="my-2" />
+            {% if not rec_friend_requests %}
+            <h5><i>Пока здесь пусто</i></h5>
+            {% else %} {% for r_request in rec_friend_requests %}
+            <a href="{{ r_request.from_user.profile.get_absolute_url }}"
+              ></a>
+            <a
+              class="mr-2 align-middle"
+              href="{{ r_request.from_user.profile.get_absolute_url }}"
+              ><b>{{ r_request.from_user.username }}</b>
+            </a>
+            <small class="float-right">
+              <a
+                class="btn btn-success mr-2"
+                href="{% url 'accept_friend_request' r_request.from_user.id %}"
+                >Принять</a
+              >
+              <a
+                class="btn btn-danger"
+                href="/users/friend-request/delete/{{ r_request.from_user.id }}"
+                >Отклонить</a
+              >
+            </small>
+            <br /><br />
+            {% endfor %} {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %} {% block jsfiles %}{% endblock jsfiles %}
