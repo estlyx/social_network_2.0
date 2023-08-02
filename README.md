@@ -28,6 +28,7 @@ URLS для `users`:
 У всех страниц наверху есть панель навигации, которая позволяет легко переходить между ними
 
 ## Запуск приложения:
+### Через загрузку всего проекта (необходимо создать БД перед запуском)
 ```
 git clone https://github.com/estlyx/social_network_2.0.git
 cd social_network_2
@@ -36,13 +37,12 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
+Перейдите по адресу http://localhost:8000
 
-ИЛИ
-
+### Через Docker
 Скачайте [файл](https://github.com/estlyx/social_network_2.0/blob/master/social_network_2/docker-compose.yml), а затем выполните эти команды:
 ```
 docker-compose up -d --build
 docker-compose exec web python manage.py migrate --noinput
 ```
-
 Перейдите по адресу http://localhost:8000
