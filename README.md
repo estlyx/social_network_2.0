@@ -30,10 +30,19 @@ URLS для `users`:
 ## Запуск приложения:
 ```
 git clone https://github.com/estlyx/social_network_2.0.git
-cd social_network
+cd social_network_2
 pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
+
+ИЛИ
+
+Скачайте [файл](https://github.com/estlyx/social_network_2.0/blob/master/social_network_2/docker-compose.yml), а затем выполните эти команды:
+```
+docker-compose up -d --build
+docker-compose exec web python manage.py migrate --noinput
+```
+
 Перейдите по адресу http://localhost:8000
