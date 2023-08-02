@@ -10,7 +10,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
+    # раскомментить для внесения изменений
     # build: .
+    # и закомментить 'image'
     image: estlyx/social_network
     command: python /usr/src/social_network_2.0/manage.py runserver 0.0.0.0:8000
     volumes:

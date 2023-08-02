@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'social_network_2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# local
+# for standard start
 '''
 DATABASES = {
     "default": {
@@ -90,7 +90,7 @@ DATABASES = {
 }
 '''
 
-# for docker
+# for docker start
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
