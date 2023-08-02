@@ -31,10 +31,7 @@ URLS для `users`:
 ```
 git clone https://github.com/estlyx/social_network_2.0.git
 cd social_network
-pip install Django
-pip install django-crispy-forms
-pip install crispy_bootstrap4
-pip install django-autoslug
+pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
