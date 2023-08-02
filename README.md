@@ -29,7 +29,7 @@ URLS для `users`:
 
 ## Запуск приложения:
 ```
-git clone https://github.com/estlyx/social_network.git
+git clone https://github.com/estlyx/social_network_2.0.git
 cd social_network
 pip install Django
 pip install django-crispy-forms
