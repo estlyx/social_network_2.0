@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u$^2o3b-r!)sw&(ij^#w(!pbt(u7y^zp077z#+esi_c&!xd6e0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+DJANGO_ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -76,6 +76,8 @@ WSGI_APPLICATION = 'social_network_2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# local
+'''
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -84,6 +86,19 @@ DATABASES = {
         "PASSWORD": "12345",
         "HOST": "127.0.0.1",
         "PORT": "5432",
+    }
+}
+'''
+
+# for docker
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",
+        "PORT": "5432"
     }
 }
 
